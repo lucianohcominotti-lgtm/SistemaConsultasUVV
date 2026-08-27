@@ -4,7 +4,6 @@ Aplicação Web desenvolvida para a disciplina de Desenvolvimento Web Back-end d
 
 O sistema permite o cadastro de usuários e o gerenciamento de consultas médicas ou profissionais, utilizando arquitetura MVC, Entity Framework Core, SQL Server e autenticação segura.
 
----
 
 ## Tecnologias utilizadas
 
@@ -199,20 +198,17 @@ Para testar o sistema:
 
 Substitua os exemplos abaixo pelos nomes reais dos integrantes, em ordem alfabética:
 
-1. NOME COMPLETO DO ALUNO 1
-2. NOME COMPLETO DO ALUNO 2
-3. NOME COMPLETO DO ALUNO 3
-4. NOME COMPLETO DO ALUNO 4
+1. Caiqui Soares Wandekoken
+2. Luciano Huwer Cominotti
+3. Vitor França Barcelos Araújo Bravin
+  
 
 ---
 
 ## Repositório
 
-Substitua o endereço abaixo pelo link real do GitHub:
+(https://github.com/lucianohcominotti-lgtm/SistemaConsultasUVV)
 
-
-
----
 
 ## Vídeo demonstrativo
 
