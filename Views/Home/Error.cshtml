@@ -1,0 +1,23 @@
+﻿@{
+    ViewData["Title"] = "Ocorreu um erro";
+}
+
+<div class="error-card">
+    <div class="error-icon">!</div>
+
+    <p class="eyebrow error-eyebrow">
+        OPS, ALGO DEU ERRADO
+    </p>
+
+    <h1>Não foi possível concluir a operação</h1>
+
+    <p>
+        Ocorreu um problema inesperado. Tente novamente em alguns instantes.
+    </p>
+
+    <a class="btn"
+       asp-controller="Home"
+       asp-action="Index">
+        Voltar para o início
+    </a>
+</div>

@@ -1,0 +1,50 @@
+@model Consulta
+
+@{
+    ViewData["Title"] = "Nova consulta";
+}
+
+<div class="form-card wide">
+    <h1>Nova consulta</h1>
+    <p>Registre um novo atendimento na sua agenda.</p>
+
+    <form asp-action="Create" method="post">
+        <div asp-validation-summary="ModelOnly" class="validation"></div>
+
+        <label asp-for="Especialidade"></label>
+        <input asp-for="Especialidade"
+               placeholder="Ex.: Cardiologia" />
+        <span asp-validation-for="Especialidade"></span>
+
+        <label asp-for="DataHora"></label>
+        <input asp-for="DataHora"
+               type="datetime-local"
+               value="@Model.DataHora.ToString("yyyy-MM-ddTHH:mm")" />
+        <span asp-validation-for="DataHora"></span>
+
+        <label asp-for="Status"></label>
+        <select asp-for="Status">
+            <option value="Agendada">Agendada</option>
+            <option value="Realizada">Realizada</option>
+            <option value="Cancelada">Cancelada</option>
+        </select>
+        <span asp-validation-for="Status"></span>
+
+        <label asp-for="Descricao"></label>
+        <textarea asp-for="Descricao"
+                  rows="5"
+                  placeholder="Informe detalhes importantes"></textarea>
+        <span asp-validation-for="Descricao"></span>
+
+        <div class="actions">
+            <button class="btn" type="submit">
+                Salvar consulta
+            </button>
+
+            <a class="btn ghost"
+               asp-action="Index">
+                Cancelar
+            </a>
+        </div>
+    </form>
+</div>

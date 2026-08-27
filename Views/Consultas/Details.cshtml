@@ -1,0 +1,70 @@
+﻿@model Consulta
+
+@{
+    ViewData["Title"] = "Detalhes da consulta";
+
+    var classeStatus = Model.Status.ToLowerInvariant();
+}
+
+<div class="details-header">
+    <div>
+        <p class="eyebrow">CONSULTA REGISTRADA</p>
+        <h1>Detalhes da consulta</h1>
+        <p class="page-subtitle">
+            Confira todas as informações deste atendimento.
+        </p>
+    </div>
+
+    <a class="btn ghost"
+       asp-action="Index">
+        Voltar para consultas
+    </a>
+</div>
+
+<div class="details-card">
+    <div class="details-top">
+        <div>
+            <span class="details-label">Especialidade</span>
+            <h2>@Model.Especialidade</h2>
+        </div>
+
+        <span class="status-badge @classeStatus">
+            @Model.Status
+        </span>
+    </div>
+
+    <div class="details-grid">
+        <div class="detail-item">
+            <span class="details-label">Data</span>
+            <strong>@Model.DataHora.ToString("dd/MM/yyyy")</strong>
+        </div>
+
+        <div class="detail-item">
+            <span class="details-label">Horário</span>
+            <strong>@Model.DataHora.ToString("HH:mm")</strong>
+        </div>
+    </div>
+
+    <div class="description-box">
+        <span class="details-label">Descrição</span>
+        <p>@Model.Descricao</p>
+    </div>
+
+    <div class="details-actions">
+        <a class="btn"
+           asp-action="Edit"
+           asp-route-id="@Model.Id">
+            Editar consulta
+        </a>
+
+        <form asp-action="Delete"
+              asp-route-id="@Model.Id"
+              method="post"
+              onsubmit="return confirm('Deseja realmente excluir esta consulta?');">
+            <button class="btn danger-button"
+                    type="submit">
+                Excluir consulta
+            </button>
+        </form>
+    </div>
+</div>

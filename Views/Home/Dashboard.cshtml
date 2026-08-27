@@ -1,0 +1,179 @@
+﻿@model DashboardViewModel
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="dashboard-header">
+    <div>
+        <p class="eyebrow dashboard-eyebrow">
+            VISÃO GERAL DA AGENDA
+        </p>
+
+        <h1>Olá, @User.Identity?.Name!</h1>
+
+        <p>
+            Aqui está um resumo das suas consultas e compromissos.
+        </p>
+    </div>
+
+    <a class="btn"
+       asp-controller="Consultas"
+       asp-action="Create">
+        + Nova consulta
+    </a>
+</div>
+
+<div class="stats-grid">
+    <article class="stat-card">
+        <div class="stat-icon blue">▤</div>
+
+        <div>
+            <span>Total de consultas</span>
+            <strong>@Model.TotalConsultas</strong>
+        </div>
+    </article>
+
+    <article class="stat-card">
+        <div class="stat-icon green">✓</div>
+
+        <div>
+            <span>Consultas futuras</span>
+            <strong>@Model.ConsultasFuturas</strong>
+        </div>
+    </article>
+
+    <article class="stat-card">
+        <div class="stat-icon purple">◷</div>
+
+        <div>
+            <span>Próximo atendimento</span>
+
+            <strong>
+                @if (Model.ProximaConsulta == null)
+                {
+                    <span>Nenhum</span>
+                }
+                else
+                {
+                    @Model.ProximaConsulta.DataHora.ToString("dd/MM")
+                }
+            </strong>
+        </div>
+    </article>
+</div>
+
+<div class="dashboard-columns">
+    <section class="dashboard-panel">
+        <div class="panel-header">
+            <div>
+                <p class="eyebrow">AGENDA</p>
+                <h2>Próximas consultas</h2>
+            </div>
+
+            <a asp-controller="Consultas"
+               asp-action="Index">
+                Ver todas
+            </a>
+        </div>
+
+        @if (!Model.ProximasConsultas.Any())
+        {
+            <div class="dashboard-empty">
+                <h3>Sua agenda está vazia</h3>
+
+                <p>
+                    Cadastre uma consulta para acompanhar seu próximo atendimento.
+                </p>
+
+                <a class="btn"
+                   asp-controller="Consultas"
+                   asp-action="Create">
+                    Cadastrar consulta
+                </a>
+            </div>
+        }
+        else
+        {
+            <div class="appointment-list">
+                @foreach (var consulta in Model.ProximasConsultas)
+                {
+                    var classeStatus = consulta.Status.ToLowerInvariant();
+
+                    <div class="appointment-item">
+                        <div class="appointment-date">
+                            <strong>
+                                @consulta.DataHora.ToString("dd")
+                            </strong>
+
+                            <span>
+                                @consulta.DataHora.ToString("MMM").ToUpper()
+                            </span>
+                        </div>
+
+                        <div class="appointment-info">
+                            <strong>
+                                @consulta.Especialidade
+                            </strong>
+
+                            <span>
+                                @consulta.DataHora.ToString("dd/MM/yyyy")
+                                às
+                                @consulta.DataHora.ToString("HH:mm")
+                            </span>
+                        </div>
+
+                        <span class="status-badge @classeStatus">
+                            @consulta.Status
+                        </span>
+
+                        <a asp-controller="Consultas"
+                           asp-action="Details"
+                           asp-route-id="@consulta.Id">
+                            Ver
+                        </a>
+                    </div>
+                }
+            </div>
+        }
+    </section>
+
+    <aside class="dashboard-panel quick-panel">
+        <p class="eyebrow">ACESSO RÁPIDO</p>
+
+        <h2>O que você deseja fazer?</h2>
+
+        <a class="quick-action"
+           asp-controller="Consultas"
+           asp-action="Create">
+            <span>＋</span>
+
+            <div>
+                <strong>Registrar consulta</strong>
+                <small>Adicione um novo atendimento</small>
+            </div>
+        </a>
+
+        <a class="quick-action"
+           asp-controller="Consultas"
+           asp-action="Index">
+            <span>▤</span>
+
+            <div>
+                <strong>Ver minha agenda</strong>
+                <small>Consulte todos os seus registros</small>
+            </div>
+        </a>
+
+        <a class="quick-action"
+           asp-controller="Home"
+           asp-action="Index">
+            <span>⌂</span>
+
+            <div>
+                <strong>Página inicial</strong>
+                <small>Volte para a apresentação do sistema</small>
+            </div>
+        </a>
+    </aside>
+</div>

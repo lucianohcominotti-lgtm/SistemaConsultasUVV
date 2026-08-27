@@ -1,0 +1,106 @@
+@model LoginViewModel
+
+@{
+    ViewData["Title"] = "Entrar";
+}
+
+<div class="auth-page">
+    <section class="auth-showcase">
+        <div class="auth-showcase-content">
+            <div class="auth-logo">GC</div>
+
+            <p class="auth-overline">
+                GESTÃO DE CONSULTAS UVV
+            </p>
+
+            <h1>
+                Suas consultas organizadas em um só lugar.
+            </h1>
+
+            <p>
+                Gerencie seus atendimentos médicos ou profissionais
+                de forma simples, segura e eficiente.
+            </p>
+
+            <div class="auth-feature">
+                <span>✓</span>
+
+                <div>
+                    <strong>Agenda organizada</strong>
+                    <small>
+                        Acompanhe todos os seus atendimentos.
+                    </small>
+                </div>
+            </div>
+
+            <div class="auth-feature">
+                <span>✓</span>
+
+                <div>
+                    <strong>Acesso seguro</strong>
+                    <small>
+                        Seus dados ficam protegidos.
+                    </small>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="auth-form-panel">
+        <div class="auth-form-content">
+            <p class="eyebrow">
+                BEM-VINDO DE VOLTA
+            </p>
+
+            <h2>Entrar na sua conta</h2>
+
+            <p class="auth-description">
+                Informe seus dados para acessar sua agenda.
+            </p>
+
+            <form asp-action="Login"
+                  method="post">
+                <input type="hidden"
+                       name="returnUrl"
+                       value="@ViewBag.ReturnUrl" />
+
+                <div asp-validation-summary="ModelOnly"
+                     class="validation">
+                </div>
+
+                <label asp-for="Email"></label>
+
+                <input asp-for="Email"
+                       autocomplete="email"
+                       placeholder="seu@email.com" />
+
+                <span asp-validation-for="Email"></span>
+
+                <label asp-for="Senha"></label>
+
+                <input asp-for="Senha"
+                       autocomplete="current-password"
+                       placeholder="Digite sua senha" />
+
+                <span asp-validation-for="Senha"></span>
+
+                <label class="check">
+                    <input asp-for="LembrarMe" />
+                    @Html.DisplayNameFor(model => model.LembrarMe)
+                </label>
+
+                <button class="btn auth-submit"
+                        type="submit">
+                    Entrar na conta
+                </button>
+            </form>
+
+            <p class="auth-footer-text">
+                Ainda não possui uma conta?
+                <a asp-action="Register">
+                    Criar uma conta
+                </a>
+            </p>
+        </div>
+    </section>
+</div>

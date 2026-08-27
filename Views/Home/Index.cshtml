@@ -1,0 +1,71 @@
+@{
+    ViewData["Title"] = "Início";
+}
+
+<section class="hero">
+    <div>
+        <p class="eyebrow">
+            SISTEMA DE GESTÃO DE CONSULTAS
+        </p>
+
+        <h1>
+            Organize seus atendimentos com simplicidade.
+        </h1>
+
+        <p>
+            Gerencie consultas médicas ou profissionais
+            de forma segura, organizada e eficiente.
+        </p>
+
+        <div class="actions">
+            @if (User.Identity?.IsAuthenticated == true)
+            {
+                <a class="btn"
+                   asp-controller="Home"
+                   asp-action="Dashboard">
+                    Acessar dashboard
+                </a>
+            }
+            else
+            {
+                <a class="btn"
+                   asp-controller="Account"
+                   asp-action="Register">
+                    Começar agora
+                </a>
+
+                <a class="btn ghost"
+                   asp-controller="Account"
+                   asp-action="Login">
+                    Já tenho conta
+                </a>
+            }
+        </div>
+    </div>
+</section>
+
+<div class="cards">
+    <article>
+        <h3>Seguro</h3>
+
+        <p>
+            Rotas protegidas e senhas armazenadas com hash seguro.
+        </p>
+    </article>
+
+    <article>
+        <h3>Organizado</h3>
+
+        <p>
+            Controle consultas, horários, descrições e status.
+        </p>
+    </article>
+
+    <article>
+        <h3>Profissional</h3>
+
+        <p>
+            Interface moderna para atendimentos médicos ou profissionais.
+        </p>
+    </article>
+</div>

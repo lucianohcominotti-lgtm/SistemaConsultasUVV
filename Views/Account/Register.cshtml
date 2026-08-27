@@ -1,0 +1,113 @@
+@model RegisterViewModel
+
+@{
+    ViewData["Title"] = "Criar conta";
+}
+
+<div class="auth-page">
+    <section class="auth-showcase">
+        <div class="auth-showcase-content">
+            <div class="auth-logo">GC</div>
+
+            <p class="auth-overline">
+                GESTÃO DE CONSULTAS UVV
+            </p>
+
+            <h1>
+                Organize melhor seus atendimentos.
+            </h1>
+
+            <p>
+                Crie sua conta para gerenciar consultas médicas
+                ou profissionais em um só lugar.
+            </p>
+
+            <div class="auth-feature">
+                <span>✓</span>
+
+                <div>
+                    <strong>Cadastro rápido</strong>
+                    <small>
+                        Preencha seus dados em poucos segundos.
+                    </small>
+                </div>
+            </div>
+
+            <div class="auth-feature">
+                <span>✓</span>
+
+                <div>
+                    <strong>Controle completo</strong>
+                    <small>
+                        Crie, edite e acompanhe suas consultas.
+                    </small>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="auth-form-panel">
+        <div class="auth-form-content">
+            <p class="eyebrow">
+                COMECE AGORA
+            </p>
+
+            <h2>Criar sua conta</h2>
+
+            <p class="auth-description">
+                Cadastre-se para gerenciar seus atendimentos.
+            </p>
+
+            <form asp-action="Register"
+                  method="post">
+                <div asp-validation-summary="ModelOnly"
+                     class="validation">
+                </div>
+
+                <label asp-for="Nome"></label>
+
+                <input asp-for="Nome"
+                       autocomplete="name"
+                       placeholder="Digite seu nome completo" />
+
+                <span asp-validation-for="Nome"></span>
+
+                <label asp-for="Email"></label>
+
+                <input asp-for="Email"
+                       autocomplete="email"
+                       placeholder="seu@email.com" />
+
+                <span asp-validation-for="Email"></span>
+
+                <label asp-for="Senha"></label>
+
+                <input asp-for="Senha"
+                       autocomplete="new-password"
+                       placeholder="Mínimo de 6 caracteres" />
+
+                <span asp-validation-for="Senha"></span>
+
+                <label asp-for="ConfirmarSenha"></label>
+
+                <input asp-for="ConfirmarSenha"
+                       autocomplete="new-password"
+                       placeholder="Digite a senha novamente" />
+
+                <span asp-validation-for="ConfirmarSenha"></span>
+
+                <button class="btn auth-submit"
+                        type="submit">
+                    Criar minha conta
+                </button>
+            </form>
+
+            <p class="auth-footer-text">
+                Já possui uma conta?
+                <a asp-action="Login">
+                    Entrar agora
+                </a>
+            </p>
+        </div>
+    </section>
+</div>

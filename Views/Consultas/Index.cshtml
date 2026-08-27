@@ -1,0 +1,247 @@
+@model IEnumerable<Consulta>
+
+@{
+    ViewData["Title"] = "Minhas consultas";
+
+    var statusSelecionado =
+        ViewBag.StatusSelecionado as string ?? "Todos";
+
+    var buscaAtual =
+        ViewBag.Busca as string ?? string.Empty;
+
+    var listaConsultas = Model.ToList();
+
+    var totalConsultas = listaConsultas.Count;
+
+    var consultasAgendadas = listaConsultas.Count(c =>
+        c.Status == "Agendada");
+
+    var consultasRealizadas = listaConsultas.Count(c =>
+        c.Status == "Realizada");
+
+    var consultasCanceladas = listaConsultas.Count(c =>
+        c.Status == "Cancelada");
+}
+
+<div class="page-head">
+    <div>
+        <p class="eyebrow">ÁREA DE ATENDIMENTOS</p>
+
+        <h1>Minhas consultas</h1>
+
+        <p class="page-subtitle">
+            Acompanhe e organize todos os seus atendimentos.
+        </p>
+    </div>
+
+    <a class="btn"
+       asp-action="Create">
+        + Nova consulta
+    </a>
+</div>
+
+<div class="consultation-summary">
+    <div class="summary-item">
+        <span class="summary-icon blue">▤</span>
+
+        <div>
+            <small>Total</small>
+            <strong>@totalConsultas</strong>
+        </div>
+    </div>
+
+    <div class="summary-item">
+        <span class="summary-icon yellow">◷</span>
+
+        <div>
+            <small>Agendadas</small>
+            <strong>@consultasAgendadas</strong>
+        </div>
+    </div>
+
+    <div class="summary-item">
+        <span class="summary-icon green">✓</span>
+
+        <div>
+            <small>Realizadas</small>
+            <strong>@consultasRealizadas</strong>
+        </div>
+    </div>
+
+    <div class="summary-item">
+        <span class="summary-icon red">×</span>
+
+        <div>
+            <small>Canceladas</small>
+            <strong>@consultasCanceladas</strong>
+        </div>
+    </div>
+</div>
+
+<form asp-action="Index"
+      method="get"
+      class="filter-bar">
+
+    <div class="filter-field search-field">
+        <label for="busca">Pesquisar consulta</label>
+
+        <input id="busca"
+               name="busca"
+               value="@buscaAtual"
+               placeholder="Especialidade ou descrição" />
+    </div>
+
+    <div class="filter-field">
+        <label for="status">Filtrar por status</label>
+
+        <select id="status"
+                name="status">
+
+            @if (statusSelecionado == "Todos")
+            {
+                <option value="Todos" selected>Todos</option>
+            }
+            else
+            {
+                <option value="Todos">Todos</option>
+            }
+
+            @if (statusSelecionado == "Agendada")
+            {
+                <option value="Agendada" selected>Agendada</option>
+            }
+            else
+            {
+                <option value="Agendada">Agendada</option>
+            }
+
+            @if (statusSelecionado == "Realizada")
+            {
+                <option value="Realizada" selected>Realizada</option>
+            }
+            else
+            {
+                <option value="Realizada">Realizada</option>
+            }
+
+            @if (statusSelecionado == "Cancelada")
+            {
+                <option value="Cancelada" selected>Cancelada</option>
+            }
+            else
+            {
+                <option value="Cancelada">Cancelada</option>
+            }
+        </select>
+    </div>
+
+    <button class="btn filter-button"
+            type="submit">
+        Filtrar
+    </button>
+
+    <a class="clear-filter"
+       asp-action="Index">
+        Limpar
+    </a>
+</form>
+
+@if (!listaConsultas.Any())
+{
+    <div class="empty">
+        <div class="empty-icon">▤</div>
+
+        <h2>Nenhuma consulta encontrada</h2>
+
+        <p>
+            Tente alterar os filtros ou cadastre uma nova consulta.
+        </p>
+
+        <a class="btn"
+           asp-action="Create">
+            Cadastrar consulta
+        </a>
+    </div>
+}
+else
+{
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Especialidade</th>
+                    <th>Data e hora</th>
+                    <th>Status</th>
+                    <th>Descrição</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var consulta in listaConsultas)
+                {
+                    var classeStatus = consulta.Status
+                        .ToLowerInvariant();
+
+                    <tr>
+                        <td>
+                            <div class="consultation-name">
+                                <span class="consultation-dot"></span>
+
+                                <strong>
+                                    @consulta.Especialidade
+                                </strong>
+                            </div>
+                        </td>
+
+                        <td>
+                            <strong>
+                                @consulta.DataHora.ToString("dd/MM/yyyy")
+                            </strong>
+
+                            <br />
+
+                            <small>
+                                @consulta.DataHora.ToString("HH:mm")
+                            </small>
+                        </td>
+
+                        <td>
+                            <span class="status-badge @classeStatus">
+                                @consulta.Status
+                            </span>
+                        </td>
+
+                        <td class="description-cell">
+                            @consulta.Descricao
+                        </td>
+
+                        <td class="actions-cell">
+                            <a asp-action="Details"
+                               asp-route-id="@consulta.Id">
+                                Detalhes
+                            </a>
+
+                            <a asp-action="Edit"
+                               asp-route-id="@consulta.Id">
+                                Editar
+                            </a>
+
+                            <form asp-action="Delete"
+                                  asp-route-id="@consulta.Id"
+                                  method="post"
+                                  class="inline"
+                                  onsubmit="return confirm('Deseja realmente excluir esta consulta?');">
+
+                                <button class="link danger"
+                                        type="submit">
+                                    Excluir
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

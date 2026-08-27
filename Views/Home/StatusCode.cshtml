@@ -1,0 +1,24 @@
+﻿@{
+    ViewData["Title"] = "Página não encontrada";
+    var codigo = ViewBag.StatusCode as int? ?? 404;
+}
+
+<div class="error-card">
+    <div class="error-code">@codigo</div>
+
+    <p class="eyebrow error-eyebrow">
+        PÁGINA INDISPONÍVEL
+    </p>
+
+    <h1>Não encontramos essa página</h1>
+
+    <p>
+        O endereço acessado não existe ou não está disponível.
+    </p>
+
+    <a class="btn"
+       asp-controller="Home"
+       asp-action="Index">
+        Voltar para o início
+    </a>
+</div>

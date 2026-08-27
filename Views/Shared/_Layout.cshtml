@@ -1,0 +1,182 @@
+@{
+    var usuarioLogado = User.Identity?.IsAuthenticated == true;
+
+    var classeShell = usuarioLogado
+        ? "app-shell has-sidebar"
+        : "app-shell public-shell";
+}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>
+        @ViewData["Title"] - Gestão de Consultas UVV
+    </title>
+
+    <link rel="stylesheet"
+          href="~/css/site.css"
+          asp-append-version="true" />
+</head>
+
+<body>
+    <div class="@classeShell">
+        @if (usuarioLogado)
+        {
+            <aside class="sidebar">
+                <div class="sidebar-brand">
+                    <a asp-controller="Home"
+                       asp-action="Dashboard">
+
+                        <span class="brand-mark">GC</span>
+
+                        <span>
+                            <strong>Gestão de Consultas</strong>
+                            <small>UVV</small>
+                        </span>
+                    </a>
+                </div>
+
+                <div class="sidebar-section-title">
+                    MENU PRINCIPAL
+                </div>
+
+                <nav class="sidebar-nav">
+                    <a asp-controller="Home"
+                       asp-action="Dashboard"
+                       class="sidebar-link">
+                        <span class="nav-icon">⌂</span>
+                        <span>Dashboard</span>
+                    </a>
+
+                    <a asp-controller="Consultas"
+                       asp-action="Index"
+                       class="sidebar-link">
+                        <span class="nav-icon">▤</span>
+                        <span>Minhas consultas</span>
+                    </a>
+
+                    <a asp-controller="Consultas"
+                       asp-action="Create"
+                       class="sidebar-link">
+                        <span class="nav-icon">＋</span>
+                        <span>Nova consulta</span>
+                    </a>
+                </nav>
+
+                <div class="sidebar-spacer"></div>
+
+                <div class="sidebar-help">
+                    <span class="help-icon">?</span>
+
+                    <div>
+                        <strong>Precisa de ajuda?</strong>
+
+                        <small>
+                            Gerencie sua agenda com facilidade.
+                        </small>
+                    </div>
+                </div>
+
+                <form asp-controller="Account"
+                      asp-action="Logout"
+                      method="post"
+                      class="sidebar-logout-form">
+
+                    <button type="submit"
+                            class="sidebar-logout">
+                        <span class="nav-icon">↪</span>
+                        <span>Sair da conta</span>
+                    </button>
+                </form>
+            </aside>
+        }
+
+        <div class="main-area">
+            <header class="topbar">
+                <div class="topbar-left">
+                    @if (usuarioLogado)
+                    {
+                        <button type="button"
+                                class="mobile-menu-button"
+                                onclick="document.body.classList.toggle('menu-open')">
+                            ☰
+                        </button>
+
+                        <span class="topbar-label">
+                            Sistema de Gestão de Consultas
+                        </span>
+                    }
+                    else
+                    {
+                        <a class="public-brand"
+                           asp-controller="Home"
+                           asp-action="Index">
+                            Gestão de Consultas UVV
+                        </a>
+                    }
+                </div>
+
+                <div class="topbar-right">
+                    @if (usuarioLogado)
+                    {
+                        <span class="topbar-date">
+                            @DateTime.Now.ToString("dd/MM/yyyy")
+                        </span>
+
+                        <div class="user-menu">
+                            <div class="user-avatar">
+                                @(User.Identity?.Name?
+                                    .Substring(0, 1)
+                                    .ToUpper())
+                            </div>
+
+                            <div class="user-info">
+                                <strong>@User.Identity?.Name</strong>
+                                <small>Usuário</small>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <a asp-controller="Account"
+                           asp-action="Login">
+                            Entrar
+                        </a>
+
+                        <a class="btn small"
+                           asp-controller="Account"
+                           asp-action="Register">
+                            Criar conta
+                        </a>
+                    }
+                </div>
+            </header>
+
+            <main class="content-area">
+                @if (TempData["Success"] is string mensagem)
+                {
+                    <div class="alert success">
+                        <span class="alert-icon">✓</span>
+                        <span>@mensagem</span>
+                    </div>
+                }
+
+                @RenderBody()
+            </main>
+
+            <footer class="app-footer">
+                <span>
+                    © @DateTime.Now.Year Gestão de Consultas UVV
+                </span>
+
+                <span>
+                    Gestão simples, segura e organizada.
+                </span>
+            </footer>
+        </div>
+    </div>
+</body>
+</html>
