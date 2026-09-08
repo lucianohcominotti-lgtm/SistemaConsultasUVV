@@ -171,7 +171,7 @@ Update-Database
 ```text
 Ctrl + F5
 ```
-
+9. ALTERNATIVA: O próprio GitHub permite abrir repositórios diretamente no visual studio, ao clicar no botão verde do repositório, aparece tal opção e ao clicar nela pedira apenas uma pasta em branco, selecione-a e abrira o visual studio, dentro dele aperte Ctrl+shift+B para iniciar o projeto e ver se a bugs, caso inicie normalmente aperte Ctrl+F5 e ai sim abrira o sistema de consultas.
 ---
 
 ## Fluxo de demonstração
@@ -216,9 +216,9 @@ O vídeo deve apresentar o cadastro, login, Dashboard e gerenciamento das consul
 
 Substitua o endereço abaixo pelo link real do vídeo:
 
-[ Assistir ao vídeo demonstrativo ](COLE_AQUI_O_LINK_DO_VIDEO)
+(https://youtu.be/UtT3BAJdZeY?feature=shared)
 
----
+
 
 ## Observação
 
